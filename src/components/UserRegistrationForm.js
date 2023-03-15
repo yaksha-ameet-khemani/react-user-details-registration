@@ -46,10 +46,6 @@ const UserRegistrationForm = ({
     }
   };
 
-  //   if (!new RegExp(/^[0-9]{10}$/).test(e.target.value)) {
-  //     new RegExp(
-  //       /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
-  //     ).test(e.target.value)
   const changeHandler = (e) => {
     setFormData((prev) => {
       return {
