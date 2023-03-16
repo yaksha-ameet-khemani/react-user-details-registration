@@ -54,10 +54,10 @@ const setup = () => {
   };
 };
 
-const testName = "UserDetails boundary";
+let testName = "UserDetails boundary";
 
 describe("boundary", () => {
-  test(`${testName} should mount UserDetails without crashing`, () => {
+  test(testName + " should mount UserDetails without crashing", () => {
     const component = shallow(<UserDetails />);
     expect(component.getElements()).toMatchSnapshot();
     component.unmount();
@@ -67,12 +67,12 @@ describe("boundary", () => {
 describe("boundary", () => {
   const { rows, cells, header, tBodyRow, container, toggleButton } = setup();
 
-  test(`${testName} should be rendered`, async () => {
+  test(testName + " should be rendered", async () => {
     render(<UserDetails />);
     expect(await screen.findByText(/Users List/i)).toBeTruthy();
   });
 
-  test(`${testName} should be rendered with data`, async () => {
+  test(testName + " should be rendered with data", async () => {
     expect(await screen.queryByText(/No Data Found/i)).toBeFalsy();
     expect(rows).toHaveLength(testData.length + 1);
     expect(tBodyRow).toHaveLength(testData.length);
@@ -80,7 +80,7 @@ describe("boundary", () => {
     expect(header).toBeTruthy();
   });
 
-  test(`${testName} should be rendered without data`, async () => {
+  test(testName + " should be rendered without data", async () => {
     const { container } = render(<UserDetails setDummyData={false} />);
     const rows = getAllRows(container);
     const cells = getAllCells(container);
@@ -92,27 +92,36 @@ describe("boundary", () => {
     expect(header).toBeTruthy();
   });
 
-  test(`${testName} should have header`, async () => {
+  test(testName + " should have header", async () => {
     expect(header).toBeTruthy();
   });
 
-  test(`${testName} should have a toggle button for registration form`, async () => {
-    expect(toggleButton).toBeTruthy();
-  });
+  test(
+    testName + " should have a toggle button for registration form",
+    async () => {
+      expect(toggleButton).toBeTruthy();
+    }
+  );
 
-  test(`${testName} should have a clickable toggle button for registration form`, async () => {
-    render(<UserDetails />);
-    const button = screen.getByRole("button");
-    fireEvent.click(button);
-    expect(screen.getByText("User Registration")).toBeInTheDocument();
-  });
+  test(
+    testName + " should have a clickable toggle button for registration form",
+    async () => {
+      render(<UserDetails />);
+      const button = screen.getByRole("button");
+      fireEvent.click(button);
+      expect(screen.getByText("User Registration")).toBeInTheDocument();
+    }
+  );
 
-  test(`${testName} should hide registration form on double clicking button`, async () => {
-    render(<UserDetails />);
-    const button = screen.getByRole("button");
-    fireEvent.click(button);
-    expect(screen.getByText("User Registration")).toBeInTheDocument();
-    fireEvent.click(button);
-    expect(screen.queryByText("User Registration")).not.toBeInTheDocument();
-  });
+  test(
+    testName + " should hide registration form on double clicking button",
+    async () => {
+      render(<UserDetails />);
+      const button = screen.getByRole("button");
+      fireEvent.click(button);
+      expect(screen.getByText("User Registration")).toBeInTheDocument();
+      fireEvent.click(button);
+      expect(screen.queryByText("User Registration")).not.toBeInTheDocument();
+    }
+  );
 });

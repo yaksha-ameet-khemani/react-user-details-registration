@@ -5,19 +5,36 @@ import "./UserDetails.css";
 const dummyData = [
   {
     id: 1,
-    name: "first",
+    firstName: "first",
+    lastName: "last",
     email: "first@mail.com",
     contact: "7878787878",
+    department: "dept 1",
+    designation: "desig 1",
+    experience: "1",
   },
-  { id: 2, name: "second", email: "second@mail.com" },
+  {
+    id: 2,
+    firstName: "seond",
+    lastName: "last",
+    email: "second@mail.com",
+    contact: "",
+    department: "dept 2",
+    designation: "desig 2",
+    experience: "2",
+  },
 ];
 
 const UserDetails = ({ setDummyData = true }) => {
   const [userData, setUserData] = useState({
     id: 0,
-    name: "",
+    firstName: "",
+    lastName: "",
     email: "",
     contact: "",
+    department: "",
+    designation: "",
+    experience: "",
   });
   const [users, setUsers] = useState({});
   const [userForm, setUserForm] = useState(false);
@@ -36,9 +53,13 @@ const UserDetails = ({ setDummyData = true }) => {
     if (userForm == false) {
       setUserData({
         id: "",
-        name: "",
+        firstName: "",
+        lastName: "",
         email: "",
         contact: "",
+        department: "",
+        designation: "",
+        experience: "",
       });
     }
     setUserForm(!userForm);
@@ -48,9 +69,13 @@ const UserDetails = ({ setDummyData = true }) => {
     setUserForm(true);
     setUserData({
       id: users[id]?.id,
-      name: users[id]?.name,
+      firstName: users[id]?.firstName,
+      lastName: users[id]?.lastName,
       email: users[id]?.email,
       contact: users[id]?.contact,
+      department: users[id]?.department,
+      designation: users[id]?.designation,
+      experience: users[id]?.experience,
     });
   };
 
@@ -65,21 +90,38 @@ const UserDetails = ({ setDummyData = true }) => {
     setUsers(updatedUsers);
   };
 
-  const saveUpdateHandler = ({ id, name, email, contact }) => {
+  const saveUpdateHandler = ({
+    id,
+    firstName,
+    lastName,
+    email,
+    contact,
+    department,
+    designation,
+    experience,
+  }) => {
     const tempUsers = JSON.parse(JSON.stringify(users));
     if (id != 0) {
       tempUsers[id] = {
         id,
-        name,
+        firstName,
+        lastName,
         email,
         contact,
+        department,
+        designation,
+        experience,
       };
     } else {
       tempUsers[Object.values(tempUsers).length + 1] = {
         id: Object.values(tempUsers).length + 1,
-        name,
+        firstName,
+        lastName,
         email,
         contact,
+        department,
+        designation,
+        experience,
       };
     }
     setUsers(tempUsers);
@@ -94,7 +136,14 @@ const UserDetails = ({ setDummyData = true }) => {
         Users List
       </h1>
       <div className="toggle-btn">
-        <button id="toggle-btn" data-testid="toggle-btn" name="toggle-btn" aria-label="toggle-btn" role="button" onClick={userFormHandler}>
+        <button
+          id="toggle-btn"
+          data-testid="toggle-btn"
+          name="toggle-btn"
+          aria-label="toggle-btn"
+          role="button"
+          onClick={userFormHandler}
+        >
           Toggle User Form
         </button>
         <br />
@@ -106,9 +155,13 @@ const UserDetails = ({ setDummyData = true }) => {
           <thead>
             <tr>
               <th>S.No</th>
-              <th>Name</th>
+              <th>First Name</th>
+              <th>Last Name</th>
               <th>Email</th>
               <th>Contact</th>
+              <th>Department</th>
+              <th>Designation</th>
+              <th>Experience</th>
               <th></th>
               <th></th>
             </tr>
@@ -119,9 +172,13 @@ const UserDetails = ({ setDummyData = true }) => {
                 {Object.entries(users).map(([key, note], index) => (
                   <tr key={key}>
                     <td>{key}</td>
-                    <td>{note.name}</td>
+                    <td>{note.firstName}</td>
+                    <td>{note.lastName}</td>
                     <td>{note.email}</td>
                     <td>{note.contact}</td>
+                    <td>{note.department}</td>
+                    <td>{note.designation}</td>
+                    <td>{note.experience}</td>
                     <td>
                       <i
                         className="material-icons"
@@ -154,9 +211,13 @@ const UserDetails = ({ setDummyData = true }) => {
         <div className="user-registration-form">
           <UserRegistrationForm
             id={userData.id}
-            name={userData.name}
+            firstName={userData.firstName}
+            lastName={userData.lastName}
             email={userData.email}
             contact={userData.contact}
+            department={userData.department}
+            designation={userData.designation}
+            experience={userData.experience}
             saveUpdateHandler={saveUpdateHandler}
             cancelHandler={cancelHandler}
           />

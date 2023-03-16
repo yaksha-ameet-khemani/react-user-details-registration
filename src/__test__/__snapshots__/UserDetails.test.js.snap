@@ -35,13 +35,25 @@ Array [
               S.No
             </th>
             <th>
-              Name
+              First Name
+            </th>
+            <th>
+              Last Name
             </th>
             <th>
               Email
             </th>
             <th>
               Contact
+            </th>
+            <th>
+              Department
+            </th>
+            <th>
+              Designation
+            </th>
+            <th>
+              Experience
             </th>
             <th />
             <th />

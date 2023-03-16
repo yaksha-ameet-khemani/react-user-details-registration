@@ -3,29 +3,36 @@ import "./UserRegistrationForm.css";
 
 const UserRegistrationForm = ({
   id = "",
-  name = "",
+  firstName = "",
+  lastName = "",
   email = "",
   contact = "",
+  department = "",
+  designation = "",
+  experience = "",
   saveUpdateHandler,
   cancelHandler,
 }) => {
   const [formData, setFormData] = useState({
     id: id,
-    name: name,
+    firstName: firstName,
+    lastName: lastName,
     email: email,
     contact: contact,
+    department: department,
+    designation: designation,
+    experience: experience,
   });
-  const [formValidData, setFormValidData] = useState({
-    validEmail: true,
-    validContact: true,
-  });
-
   const [invalidForm, setInvalidForm] = useState(true);
 
   const [formError, setFormError] = useState({
-    name: false,
+    firstName: false,
+    lastName: false,
     email: false,
     contact: false,
+    department: false,
+    designation: false,
+    experience: false,
   });
 
   const blurHandler = (e) => {
@@ -82,7 +89,15 @@ const UserRegistrationForm = ({
     ).test(formData.email);
     if (isEmailValid) {
       saveUpdateHandler(formData);
-      setFormData({ name: "", email: "", contact: "" });
+      setFormData({
+        firstName: "",
+        lastName: "",
+        email: "",
+        contact: "",
+        department: "",
+        designation: "",
+        experience: "",
+      });
       setInvalidForm(true);
     } else {
       setFormError((prev) => {
@@ -95,12 +110,22 @@ const UserRegistrationForm = ({
   };
 
   useEffect(() => {
-    const nameValue = formData.name;
+    const firstNameValue = formData.firstName;
     const emailValue = formData.email;
+    const departmentValue = formData.department;
+    const designationValue = formData.designation;
+    const experienceValue = formData.experience;
+
     const validEmail = new RegExp(
       /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
     ).test(emailValue);
-    if (nameValue.length > 0 && validEmail) {
+    if (
+      firstNameValue.length > 0 &&
+      validEmail &&
+      departmentValue.length > 0 &&
+      designationValue.length > 0 &&
+      experienceValue.length > 0
+    ) {
       setInvalidForm(false);
     } else {
       setInvalidForm(true);
@@ -125,21 +150,45 @@ const UserRegistrationForm = ({
               <table className="inner-table">
                 <tbody>
                   <tr>
-                    <td>*Name:</td>
+                    <td>*First Name:</td>
                     <td>
                       <input
                         type="text"
-                        id="name"
+                        id="firstName"
+                        data-testid="firstName"
                         onBlur={blurHandler}
                         onChange={changeHandler}
-                        value={formData.name}
+                        value={formData.firstName}
                       ></input>
                       <br />
-                      {formError.name && (
-                        <span className="email-error" name="name-error">
-                          Name is required
+                      {formError.firstName && (
+                        <span className="error" name="name-error">
+                          First Name is required
                         </span>
                       )}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <br />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Last Name:</td>
+                    <td>
+                      <input
+                        type="text"
+                        id="lastName"
+                        onBlur={blurHandler}
+                        onChange={changeHandler}
+                        value={formData.lastName}
+                      ></input>
+                      <br />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <br />
                     </td>
                   </tr>
                   <tr>
@@ -148,16 +197,22 @@ const UserRegistrationForm = ({
                       <input
                         type="text"
                         id="email"
+                        data-testid="email"
                         onBlur={blurHandler}
                         onChange={changeHandler}
                         value={formData.email}
                       ></input>
                       <br />
                       {formError.email && (
-                        <span className="email-error" name="email-error">
+                        <span className="error" name="error">
                           Invalid Email
                         </span>
                       )}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <br />
                     </td>
                   </tr>
                   <tr>
@@ -173,7 +228,84 @@ const UserRegistrationForm = ({
                   </tr>
                   <tr>
                     <td>
-                      <table className="btn-table">
+                      <br />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>*Department:</td>
+                    <td>
+                      <input
+                        type="text"
+                        id="department"
+                        data-testid="department"
+                        onBlur={blurHandler}
+                        onChange={changeHandler}
+                        value={formData.department}
+                      ></input>
+                      <br />
+                      {formError.department && (
+                        <span className="error" name="error">
+                          Department is required
+                        </span>
+                      )}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <br />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>*Designation:</td>
+                    <td>
+                      <input
+                        type="text"
+                        id="designation"
+                        data-testid="designation"
+                        onBlur={blurHandler}
+                        onChange={changeHandler}
+                        value={formData.designation}
+                      ></input>
+                      <br />
+                      {formError.designation && (
+                        <span className="error" name="error">
+                          Designation is required
+                        </span>
+                      )}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <br />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>*Experience:</td>
+                    <td>
+                      <input
+                        type="number"
+                        id="experience"
+                        data-testid="experience"
+                        onBlur={blurHandler}
+                        onChange={changeHandler}
+                        value={formData.experience}
+                      ></input>
+                      <br />
+                      {formError.experience && (
+                        <span className="error  " name="error">
+                          Experience is required
+                        </span>
+                      )}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <br />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <table>
                         <tbody>
                           <tr>
                             <td>
@@ -181,9 +313,8 @@ const UserRegistrationForm = ({
                                 type="submit"
                                 name="submit"
                                 id="submit"
-                                value={
-                                  email.length ? "Updated User" : "Add User"
-                                }
+                                data-testid="submit"
+                                value="Add User"
                                 disabled={invalidForm}
                                 onClick={submitHandler}
                               />
